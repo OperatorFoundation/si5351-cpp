@@ -14,7 +14,9 @@ add_library(si5351-cpp STATIC ${SI5351_FILES})
 
 target_include_directories(si5351-cpp PUBLIC
   ${SI5351_LIB_SOURCE_DIR}
+  ${FLUX_CPP}/src
 )
+target_link_libraries(si5351-cpp PRIVATE flux-cpp)
 
 if(ENABLE_COVERAGE AND (CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CX_COMPILER_ID MATCHES "Clang"))
   target_compile_options(si5351-cpp PRIVATE --coverage -O0 -g)
