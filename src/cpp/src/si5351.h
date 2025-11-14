@@ -29,7 +29,7 @@
 #ifndef SI5351_H_
 #define SI5351_H_
 
-#include <flux-cpp.h>
+#include <onda.h>
 #include <stdint.h>
 
 /* Define definitions */

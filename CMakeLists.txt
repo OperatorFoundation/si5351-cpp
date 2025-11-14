@@ -40,9 +40,9 @@ endif()
 
 include(lib/cmake-helpers/arduino-cli.cmake)
 
-set(FLUX_CPP ${CMAKE_SOURCE_DIR}/lib/flux-cpp/src/cpp)
-set(FLUX_ARDUINO ${CMAKE_SOURCE_DIR}/lib/flux-cpp/src/arduino)
-set(FLUX_TESTS ${CMAKE_SOURCE_DIR}/lib/flux-cpp/src/tests)
+set(ONDA ${CMAKE_SOURCE_DIR}/lib/onda/src/cpp)
+set(ONDA_ARDUINO ${CMAKE_SOURCE_DIR}/lib/onda/src/arduino)
+set(ONDA_TESTS ${CMAKE_SOURCE_DIR}/lib/onda/src/tests)
 set(SI5351_CPP ${CMAKE_SOURCE_DIR}/src/cpp)
 set(SI5351_ARDUINO ${CMAKE_SOURCE_DIR}/src/arduino)
 set(SI5351_TESTS ${CMAKE_SOURCE_DIR}/src/tests)

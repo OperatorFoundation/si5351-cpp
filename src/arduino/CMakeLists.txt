@@ -20,8 +20,7 @@ set(PORT "/dev/cu.usbmodem1101")
 set(OUTPUT_DIR ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/arduino/rp2350/si5351-i2c)
 file(GLOB_RECURSE SI5351_FILES ${SI5351_LIB_SOURCE_DIR}/*.cpp ${SI5351_ARDUINO_SOURCE_DIR}/*.cpp ${SI5351_ARDUINO_SOURCE_DIR}/*.ino)
 
-add_executable(si5351-arduino ${SI5351_FILES}
-  src/si5351-arduino.h)
+add_executable(si5351-arduino ${SI5351_FILES})
 add_dependencies(si5351-arduino build_si5351_arduino_example)
 target_link_libraries(si5351-arduino PRIVATE si5351-cpp)
 target_link_arduino_sdk(si5351-arduino rp2040)
@@ -33,8 +32,8 @@ add_custom_target(build_si5351_arduino_example ALL
             --build-property "compiler.cpp.extra_flags=-std=c++17 -D_BSD_SOURCE -D_DEFAULT_SOURCE"
             --library ${SI5351_LIB_DIR}
             --library ${SI5351_ARDUINO_DIR}
-            --library ${FLUX_CPP}
-            --library ${FLUX_ARDUINO}
+            --library ${ONDA}
+            --library ${ONDA_ARDUINO}
   ${SKETCH_FILE}
         WORKING_DIRECTORY ${SI5351_ARDUINO_SOURCE_DIR}
         COMMENT "Building si5351-arduino with arduino-cli"
