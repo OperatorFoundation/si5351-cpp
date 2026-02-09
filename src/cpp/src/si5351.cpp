@@ -1348,8 +1348,11 @@ uint8_t Si5351::si5351_read(uint8_t addr)
 	uint8_t reg_val = 0;
 
 	Serial.println("si5351_read: i2c.beginTransission");
+  Serial.print("i2c_bus_addr: ");
+  Serial.print(i2c_bus_addr);
 	i2c.beginTransmission(i2c_bus_addr);
-	Serial.println("si5351_read: i2c.write addr");
+	Serial.print("si5351_read: i2c.write addr": );
+  Serial.println(addr);
 	i2c.write(addr);
 	Serial.println("si5351_read: i2c.endTransmission");
 	i2c.endTransmission();
