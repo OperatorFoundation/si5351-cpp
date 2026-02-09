@@ -630,6 +630,8 @@ void Si5351::set_ms(enum si5351_clock clk, struct Si5351RegSet ms_reg, uint8_t i
 		temp = ms_reg.p1;
 	}
 
+	Serial.println("set_ms clk: " + String(clk));
+
 	// Write the parameters
 	switch(clk)
 	{
@@ -1311,14 +1313,19 @@ void Si5351::set_ref_freq(uint32_t ref_freq, enum si5351_pll_input ref_osc)
 
 uint8_t Si5351::si5351_write_bulk(uint8_t addr, uint8_t bytes, uint8_t *data)
 {
+	Serial.print("si5151_write_bulk: i2c.beginTransission");
 	i2c.beginTransmission(i2c_bus_addr);
+	Serial.print("si5151_write_bulk: i2c.write addr");
 	i2c.write(addr);
 	for(int i = 0; i < bytes; i++)
 	{
+			Serial.print("si5151_write_bulk: i2c.write data");
 		i2c.write(data[i]);
 	}
-	return i2c.endTransmission();
 
+	Serial.print("si5151_write_bulk: i2c.endTransmission");
+	return i2c.endTransmission();
+	Serial.print("si5151_write_bulk: done");
 }
 
 uint8_t Si5351::si5351_write(uint8_t addr, uint8_t data)
