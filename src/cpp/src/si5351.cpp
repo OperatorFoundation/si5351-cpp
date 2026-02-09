@@ -691,6 +691,7 @@ void Si5351::output_enable(enum si5351_clock clk, uint8_t enable)
 {
   uint8_t reg_val;
 
+	 Serial.println("output_enable: si5351_read");
   reg_val = si5351_read(SI5351_OUTPUT_ENABLE_CTRL);
 
   if(enable == 1)
@@ -702,6 +703,7 @@ void Si5351::output_enable(enum si5351_clock clk, uint8_t enable)
     reg_val |= (1<<(uint8_t)clk);
   }
 
+	 Serial.println("output_enable: si5351_write");
   si5351_write(SI5351_OUTPUT_ENABLE_CTRL, reg_val);
 }
 
@@ -1313,44 +1315,56 @@ void Si5351::set_ref_freq(uint32_t ref_freq, enum si5351_pll_input ref_osc)
 
 uint8_t Si5351::si5351_write_bulk(uint8_t addr, uint8_t bytes, uint8_t *data)
 {
-	Serial.print("si5151_write_bulk: i2c.beginTransission");
+	Serial.println("si5151_write_bulk: i2c.beginTransission");
 	i2c.beginTransmission(i2c_bus_addr);
-	Serial.print("si5151_write_bulk: i2c.write addr");
+	Serial.println("si5151_write_bulk: i2c.write addr");
 	i2c.write(addr);
 	for(int i = 0; i < bytes; i++)
 	{
-			Serial.print("si5151_write_bulk: i2c.write data");
+			Serial.println("si5151_write_bulk: i2c.write data");
 		i2c.write(data[i]);
 	}
 
-	Serial.print("si5151_write_bulk: i2c.endTransmission");
+	Serial.println("si5151_write_bulk: i2c.endTransmission");
 	return i2c.endTransmission();
-	Serial.print("si5151_write_bulk: done");
+	Serial.println("si5151_write_bulk: done");
 }
 
 uint8_t Si5351::si5351_write(uint8_t addr, uint8_t data)
 {
+	Serial.println("si5351_write: i2c.beginTransission");
 	i2c.beginTransmission(i2c_bus_addr);
+	Serial.println("si5351_write: i2c.write addr");
 	i2c.write(addr);
+	Serial.println("si5351_write: i2c.write data");
 	i2c.write(data);
+	Serial.println("si5351_write: i2c.endTransmission");
 	return i2c.endTransmission();
+	Serial.println("si5351_write: done");
 }
 
 uint8_t Si5351::si5351_read(uint8_t addr)
 {
 	uint8_t reg_val = 0;
 
+	Serial.println("si5351_read: i2c.beginTransission");
 	i2c.beginTransmission(i2c_bus_addr);
+	Serial.println("si5351_read: i2c.write addr");
 	i2c.write(addr);
+	Serial.println("si5351_read: i2c.endTransmission");
 	i2c.endTransmission();
 
+	Serial.println("si5351_read: i2c.requestFrom");
 	i2c.requestFrom(i2c_bus_addr, (uint8_t)1);
 
+	Serial.println("si5351_read: i2c.available");
 	while(i2c.available())
 	{
+		Serial.println("si5351_read: i2c.read");
 		reg_val = i2c.read();
 	}
 
+	Serial.println("si5351_read: done");
 	return reg_val;
 }
 
