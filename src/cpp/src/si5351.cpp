@@ -503,6 +503,7 @@ uint8_t Si5351::set_freq_manual(uint64_t freq, uint64_t pll_freq, enum si5351_cl
  */
 void Si5351::set_pll(uint64_t pll_freq, enum si5351_pll target_pll)
 {
+	 Serial.println("set_pll in");
   struct Si5351RegSet pll_reg;
 
 	if(target_pll == SI5351_PLLA)
@@ -564,6 +565,7 @@ void Si5351::set_pll(uint64_t pll_freq, enum si5351_pll target_pll)
   }
 
   delete params;
+	 Serial.println("set_pll out");
 }
 
 /*
@@ -581,6 +583,7 @@ void Si5351::set_pll(uint64_t pll_freq, enum si5351_pll target_pll)
  */
 void Si5351::set_ms(enum si5351_clock clk, struct Si5351RegSet ms_reg, uint8_t int_mode, uint8_t r_div, uint8_t div_by_4)
 {
+	 Serial.println("set_ms in");
 	uint8_t *params = new uint8_t[20];
 	uint8_t i = 0;
  	uint8_t temp;
@@ -671,6 +674,7 @@ void Si5351::set_ms(enum si5351_clock clk, struct Si5351RegSet ms_reg, uint8_t i
 	}
 
 	delete params;
+	 Serial.println("set_ms out");
 }
 
 /*

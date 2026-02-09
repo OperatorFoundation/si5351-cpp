@@ -31,6 +31,7 @@
 
 #include <onda.h>
 #include <stdint.h>
+#include <Arduino.h>
 
 /* Define definitions */
 
