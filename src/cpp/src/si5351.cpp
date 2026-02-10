@@ -1327,7 +1327,6 @@ uint8_t Si5351::si5351_write_bulk(uint8_t addr, uint8_t bytes, uint8_t *data)
 
 	Serial.println("si5151_write_bulk: i2c.endTransmission");
 	return i2c.endTransmission();
-	Serial.println("si5151_write_bulk: done");
 }
 
 uint8_t Si5351::si5351_write(uint8_t addr, uint8_t data)
@@ -1340,7 +1339,6 @@ uint8_t Si5351::si5351_write(uint8_t addr, uint8_t data)
 	i2c.write(data);
 	Serial.println("si5351_write: i2c.endTransmission");
 	return i2c.endTransmission();
-	Serial.println("si5351_write: done");
 }
 
 uint8_t Si5351::si5351_read(uint8_t addr)
@@ -1349,7 +1347,7 @@ uint8_t Si5351::si5351_read(uint8_t addr)
 
 	Serial.println("si5351_read: i2c.beginTransission");
   Serial.print("i2c_bus_addr: ");
-  Serial.print(i2c_bus_addr);
+  Serial.println(i2c_bus_addr);
 	i2c.beginTransmission(i2c_bus_addr);
 	Serial.print("si5351_read: i2c.write addr: ");
   Serial.println(addr);
