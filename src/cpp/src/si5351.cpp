@@ -503,7 +503,6 @@ uint8_t Si5351::set_freq_manual(uint64_t freq, uint64_t pll_freq, enum si5351_cl
  */
 void Si5351::set_pll(uint64_t pll_freq, enum si5351_pll target_pll)
 {
-	 Serial.println("set_pll in");
   struct Si5351RegSet pll_reg;
 
 	if(target_pll == SI5351_PLLA)
@@ -565,7 +564,6 @@ void Si5351::set_pll(uint64_t pll_freq, enum si5351_pll target_pll)
   }
 
   delete params;
-	 Serial.println("set_pll out");
 }
 
 /*
@@ -583,7 +581,6 @@ void Si5351::set_pll(uint64_t pll_freq, enum si5351_pll target_pll)
  */
 void Si5351::set_ms(enum si5351_clock clk, struct Si5351RegSet ms_reg, uint8_t int_mode, uint8_t r_div, uint8_t div_by_4)
 {
-	 Serial.println("set_ms in");
 	uint8_t *params = new uint8_t[20];
 	uint8_t i = 0;
  	uint8_t temp;
@@ -630,7 +627,6 @@ void Si5351::set_ms(enum si5351_clock clk, struct Si5351RegSet ms_reg, uint8_t i
 		temp = ms_reg.p1;
 	}
 
-	Serial.println("set_ms clk: " + String(clk));
 
 	// Write the parameters
 	switch(clk)
@@ -676,7 +672,6 @@ void Si5351::set_ms(enum si5351_clock clk, struct Si5351RegSet ms_reg, uint8_t i
 	}
 
 	delete params;
-	 Serial.println("set_ms out");
 }
 
 /*
@@ -691,7 +686,6 @@ void Si5351::output_enable(enum si5351_clock clk, uint8_t enable)
 {
   uint8_t reg_val;
 
-	 Serial.println("output_enable: si5351_read");
   reg_val = si5351_read(SI5351_OUTPUT_ENABLE_CTRL);
 
   if(enable == 1)
@@ -703,7 +697,6 @@ void Si5351::output_enable(enum si5351_clock clk, uint8_t enable)
     reg_val |= (1<<(uint8_t)clk);
   }
 
-	 Serial.println("output_enable: si5351_write");
   si5351_write(SI5351_OUTPUT_ENABLE_CTRL, reg_val);
 }
 
@@ -1315,29 +1308,21 @@ void Si5351::set_ref_freq(uint32_t ref_freq, enum si5351_pll_input ref_osc)
 
 uint8_t Si5351::si5351_write_bulk(uint8_t addr, uint8_t bytes, uint8_t *data)
 {
-	Serial.println("si5151_write_bulk: i2c.beginTransission");
 	i2c.beginTransmission(i2c_bus_addr);
-	Serial.println("si5151_write_bulk: i2c.write addr");
 	i2c.write(addr);
 	for(int i = 0; i < bytes; i++)
 	{
-			Serial.println("si5151_write_bulk: i2c.write data");
 		i2c.write(data[i]);
 	}
 
-	Serial.println("si5151_write_bulk: i2c.endTransmission");
 	return i2c.endTransmission();
 }
 
 uint8_t Si5351::si5351_write(uint8_t addr, uint8_t data)
 {
-	Serial.println("si5351_write: i2c.beginTransission");
 	i2c.beginTransmission(i2c_bus_addr);
-	Serial.println("si5351_write: i2c.write addr");
 	i2c.write(addr);
-	Serial.println("si5351_write: i2c.write data");
 	i2c.write(data);
-	Serial.println("si5351_write: i2c.endTransmission");
 	return i2c.endTransmission();
 }
 
@@ -1345,27 +1330,17 @@ uint8_t Si5351::si5351_read(uint8_t addr)
 {
 	uint8_t reg_val = 0;
 
-	Serial.println("si5351_read: i2c.beginTransission");
-  Serial.print("i2c_bus_addr: ");
-  Serial.println(i2c_bus_addr);
 	i2c.beginTransmission(i2c_bus_addr);
-	Serial.print("si5351_read: i2c.write addr: ");
-  Serial.println(addr);
 	i2c.write(addr);
-	Serial.println("si5351_read: i2c.endTransmission");
 	i2c.endTransmission();
 
-	Serial.println("si5351_read: i2c.requestFrom");
 	i2c.requestFrom(i2c_bus_addr, (uint8_t)1);
 
-	Serial.println("si5351_read: i2c.available");
 	while(i2c.available())
 	{
-		Serial.println("si5351_read: i2c.read");
 		reg_val = i2c.read();
 	}
 
-	Serial.println("si5351_read: done");
 	return reg_val;
 }
 
